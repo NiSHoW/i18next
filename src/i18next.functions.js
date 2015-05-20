@@ -122,13 +122,22 @@ function loadNamespace(namespace, cb) {
 }
 
 function loadNamespaces(namespaces, cb) {
-    var opts = {
+	asyncLoadNamespaces(namespaces, {}, cb);
+}
+
+function asyncLoadNamespace(namespace, opts, cb) {
+	asyncLoadNamespaces([namespace], opts, cb);
+}
+
+function asyncLoadNamespaces(namespaces, opts, cb) {
+
+    opts = _extend({
         dynamicLoad: o.dynamicLoad,
         resGetPath: o.resGetPath,
         getAsync: o.getAsync,
         customLoad: o.customLoad,
         ns: { namespaces: namespaces, defaultNs: ''} /* new namespaces to load */
-    };
+    }, opts);
 
     // languages to load
     var lngsToLoad = f.toLanguages(o.lng);
@@ -175,9 +184,9 @@ function loadNamespaces(namespaces, cb) {
                     resStore[lngValue][nsValue] = store[lngValue][nsValue];
 
                     todo--; // wait for all done befor callback
-                    if (todo === 0 && cb) {
+                    if (todo === 0) {
                         if (o.useLocalStorage) i18n.sync._storeLocal(resStore);
-                        cb();
+                        if (cb) cb();
                     }
                 });
             });

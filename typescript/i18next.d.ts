@@ -88,6 +88,8 @@ interface I18nextStatic {
     lng(): string;
     loadNamespace(namespace: string, callback?: () => void ): void;
     loadNamespaces(namespaces: string[], callback?: () => void ): void;
+    asyncLoadNamespace(namespace: string, opts: any, callback?: () => void ): void;
+    asyncLoadNamespaces(namespaces: string[], opts: any, callback?: () => void ): void;
     pluralExtensions: {
         addRule(language: string, obj: {
             name: string;

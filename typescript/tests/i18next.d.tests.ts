@@ -324,6 +324,23 @@ describe('i18next', function () {
                             expect(i18n.t('simple_en', { ns: 'ns.common' })).to.be('ok_from_common_en');
                             expect(i18n.t('simple_dev', { ns: 'ns.common' })).to.be('ok_from_common_dev');
                         });
+                        
+                        
+                        describe('loading async namespace from external locales path', function () {
+                            beforeEach(function (done) {
+                                i18n.asyncLoadNamespace('async-namespace', {
+                                    resGetPath: 'test/other-locales/__lng__/__ns__.json'
+                                }, done);
+                            });
+    
+                            it('it should provide loaded resources for translation', function () {
+                                // default ns
+                                expect(i18n.t('async-namespace:test')).to.be('test');
+                                expect(i18n.t('async-namespace:test3')).to.be('test3');                                
+                            });
+
+                        });
+                        
 
                     });
 
@@ -370,6 +387,22 @@ describe('i18next', function () {
 
                             it('it should not reload language', function () {
                                 expect(spy.callCount).to.be(0);
+                            });
+                            
+                            
+                           describe('loading async namespace from external locales path', function () {
+                                beforeEach(function (done) {
+                                    i18n.asyncLoadNamespace('async-namespace', {
+                                        resGetPath: 'test/other-locales/__lng__/__ns__.json'
+                                    }, done);
+                                });
+        
+                                it('it should provide loaded resources for translation', function () {
+                                    // default ns
+                                    expect(i18n.t('async-namespace:test')).to.be('test');
+                                    expect(i18n.t('async-namespace:test3')).to.be('test3');                                
+                                });
+    
                             });
 
                         });
@@ -1221,9 +1254,7 @@ describe('i18next', function () {
                 };
 
                 beforeEach(function (done) {
-                    setFixtures('
-
-');
+                    setFixtures('');
 
                     i18n.init($.extend(opts, { resStore: resStore }),
                       function (t) { done(); });
@@ -1250,9 +1281,7 @@ describe('i18next', function () {
                 };
 
                 beforeEach(function (done) {
-                    setFixtures('
-
-');
+                    setFixtures('');
 
                     i18n.init($.extend(opts, { resStore: resStore }),
                       function (t) { done(); });
@@ -1279,9 +1308,7 @@ describe('i18next', function () {
                 };
 
                 beforeEach(function (done) {
-                    setFixtures('
-
-');
+                    setFixtures('');
 
                     i18n.init($.extend(opts, { resStore: resStore }),
                       function (t) { done(); });
@@ -1299,14 +1326,11 @@ describe('i18next', function () {
                 var resStore = {
                     dev: { translation: {} },
                     en: { translation: {} },
-                    'en-US': { translation: { 'simpleTest': '
-test
-' } }
+                    'en-US': { translation: { 'simpleTest': 'test' } }
                 };
 
                 beforeEach(function (done) {
-                    setFixtures('
-');
+                    setFixtures('');
 
                     i18n.init($.extend(opts, { resStore: resStore }),
                       function (t) { done(); });
@@ -1329,9 +1353,7 @@ test
                 };
 
                 beforeEach(function (done) {
-                    setFixtures('
-
-');
+                    setFixtures('');
 
                     i18n.init($.extend(opts, {
                         resStore: resStore,
