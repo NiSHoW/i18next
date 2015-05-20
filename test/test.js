@@ -679,15 +679,15 @@ describe('i18next', function() {
             
             describe('loading async namespace from external locales path', function () {
               beforeEach(function (done) {
-                i18n.asyncLoadNamespace('async-namespace', {
+                i18n.asyncLoadNamespace('asyncnamespace', {
                     resGetPath: 'test/other-locales/__lng__/__ns__.json'
                 }, done);
               });
               
               it('it should provide loaded resources for translation', function () {
                 // default ns
-                expect(i18n.t('async-namespace:test')).to.be('test');
-                expect(i18n.t('async-namespace:test3')).to.be('test3');                                
+                expect(i18n.t('asyncnamespace:test')).to.be('test');
+                expect(i18n.t('asyncnamespace:test3')).to.be('test3');                                
               });
             
             });
